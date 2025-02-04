@@ -11,3 +11,6 @@ I also installed Bootstrap for React with npm. I am choosing to develop with Boo
 So far, npm start is resulting in a develoment build that is compiling fully. Ok, nice!
 
 In terms of next steps, I will create the front end design of this application, without entirely thinking about form submissions and user authentication.
+
+Currently working on front end design of this application:
+For page routing, I had to manually install "react-router-dom"
