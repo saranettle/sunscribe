@@ -14,3 +14,6 @@ In terms of next steps, I will create the front end design of this application, 
 
 Currently working on front end design of this application:
 For page routing, I had to manually install "react-router-dom"
+
+2/4/2025 (6:00 p.m.):
+At this point, much of the front end design has been implemented, with responsiveness added utilizing Bootstrap. While I could fine-tune the design further to better match the prototype, I think it would be prudent for me to figure out how to add user authentication. I'll attempt to do that tonight.
