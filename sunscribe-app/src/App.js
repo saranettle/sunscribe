@@ -1,6 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// Importing bootstrap
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 // Importing the pages of the application
 import Home from './pages/home';
@@ -19,31 +23,45 @@ function App() {
 
       <BrowserRouter>
 
-        <header>
-          <h1>SunScribe</h1>
-        </header>
+      <Container>
 
-        <main>
-          <Routes>
-            
-            {/* Adding the routes for the pages of the application that do not require user-authentication */}
-            <Route path="/" element={<Home/>} />
-            <Route path="/about" element={<About/>} />
-            <Route path="/login" element={<Login/>} />
-            <Route path="/register" element={<Register/>} />
+          <Row>
+            <Col sm={12} md={4}>
+              <header>
+                <h1 class="display-1">sunscribe</h1>
+              </header>
+            </Col>
+            <Col sm={12} md={8}>
+            </Col>
+          </Row>
 
-            {/* Adding the routes for the pages that do require user-authentication. 
-            How this works may change, since I don't really know how to do user authentication lol. */}
-            <Route path="/home" element={<User_Home/>} />
-            <Route path="/entries" element={<Prev_Entries/>} />
-            <Route path="/new" element={<New_Entry/>} />
+          <main>
+            <Routes>
+              
+              {/* Adding the routes for the pages of the application that do not require user-authentication */}
+              <Route path="/" element={<Home/>} />
+              <Route path="/about" element={<About/>} />
+              <Route path="/login" element={<Login/>} />
+              <Route path="/register" element={<Register/>} />
 
-          </Routes>
-        </main>
+              {/* Adding the routes for the pages that do require user-authentication. 
+              How this works may change, since I don't really know how to do user authentication lol. */}
+              <Route path="/home" element={<User_Home/>} />
+              <Route path="/entries" element={<Prev_Entries/>} />
+              <Route path="/new" element={<New_Entry/>} />
 
-        <footer>
-          <p>&copy; 2025 Sara Nettle</p>
-        </footer>
+            </Routes>
+          </main>
+
+          <Row>
+            <Col sm={12}>
+              <footer>
+                <p>&copy; 2025 Sara Nettle</p>
+              </footer>
+            </Col>
+          </Row>
+
+        </Container>
 
       </BrowserRouter>
 

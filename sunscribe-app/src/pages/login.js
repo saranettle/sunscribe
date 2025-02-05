@@ -1,16 +1,25 @@
 import { React } from 'react';
-
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function Login() {
 
 
     return (
         <>
-            
-            <div>
-                <h2><a href="/about">About</a></h2>
-            </div>
-            <div>
+            <Row>
+            <Col xs={{ span: 10, offset: 1 }} md={{ span: 6, offset: 3 }} xl={{ span: 4, offset: 4}}>
+            <a href="/about">
+                <div class="homepage">
+                    <h2>About</h2>
+                </div>
+            </a>
+            </Col>
+            </Row>
+
+            <Row>
+            <Col xs={{ span: 10, offset: 1 }} md={{ span: 6, offset: 3 }} xl={{ span: 4, offset: 4}}>
+            <div class="homepage">
                 <h2>Login</h2>
                 <form id="login_form" action="/">
 
@@ -25,12 +34,21 @@ function Login() {
 
                 </form>
 
-                <p><a href="/">Back</a></p>
+                <button><a href="/">Back</a></button>
 
             </div>
-            <div>
-                <h2><a href="/register">Register</a></h2>
-            </div>
+            </Col>
+            </Row>
+
+            <Row>
+            <Col xs={{ span: 10, offset: 1 }} md={{ span: 6, offset: 3 }} xl={{ span: 4, offset: 4}}>
+            <a href="/register">
+                <div class="homepage">
+                    <h2>Register</h2>
+                </div>
+            </a>
+            </Col>
+            </Row>
 
         </>
     );
