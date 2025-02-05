@@ -1,4 +1,6 @@
 import { React } from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 // Importing components for the application
 import Menu from '../components/menu';
