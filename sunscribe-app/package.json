@@ -1,16 +1,26 @@
 {
-  "name": "sunscribe-app",
-  "version": "0.1.0",
+  "name": "nettles-portfolio-frontend",
+  "version": "2023",
   "private": true,
+  "proxy": "http://localhost:3000",
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.3.3",
-    "cra-template": "1.2.0",
-    "express": "^4.21.2",
-    "react": "^19.0.0",
+    "cra-template": "^1.2.0",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "nodemailer-react": "^1.0.2",
+    "nodemon": "^2.0.20",
+    "react": "^18.2.0",
     "react-bootstrap": "^2.10.9",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.1.5",
-    "react-scripts": "5.0.1"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
+    "react-image-gallery": "^1.2.11",
+    "react-router-dom": "^6.6.1",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,8 +45,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "web-vitals": "^4.2.4"
   }
 }
