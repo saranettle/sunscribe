@@ -3,6 +3,7 @@
 import 'dotenv/config';
 import express from 'express';
 import * as users from './users-model.mjs';
+import * as entries from './entries-model.mjs'
 
 const PORT = process.env.PORT;
 const app = express();
@@ -17,7 +18,7 @@ app.post ('/users', (req,res) => {
         req.body.password
         )
         .then(user => {
-            console.log(`"${user.username}" was successfully added to User Database.`);
+            console.log(`Success! User created.`);
             res.status(201).json(user);
         })
         .catch(error => {
@@ -26,6 +27,20 @@ app.post ('/users', (req,res) => {
         });
 });
 
+app.post ('/entries', (req,res) => { 
+    entries.createEntry(
+        req.body.text, 
+        req.body.author, 
+        )
+        .then(entry => {
+            console.log(`Success! Entry added.`);
+            res.status(201).json(entry);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(400).json({ Error: 'Woops! Unable to add entry to the database.' });
+        });
+});
 
 // RETRIEVE controller ****************************************************
 app.get('/users', (req, res) => {

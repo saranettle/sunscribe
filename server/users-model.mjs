@@ -27,9 +27,12 @@ const userSchema = mongoose.Schema({
 	password:         { type: String, required: true }
 });
 
+
+
 // Compile the model from the schema 
 // by defining the collection username "users".
 const users = mongoose.model('Users', userSchema);
+
 
 
 // CREATE model *****************************************
@@ -41,6 +44,7 @@ const createUser = async (username, email, password) => {
     });
     return user.save();
 }
+
 
 
 // RETRIEVE model *****************************************

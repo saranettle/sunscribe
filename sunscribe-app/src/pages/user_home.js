@@ -1,5 +1,5 @@
 import { React } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -16,7 +16,7 @@ function User_Home() {
            <Menu />
            <div>
             <h2>Welcome, { username }.</h2>
-            <p><a href="/new">New Entry</a></p>
+            <p><Link to={`/new/${username}`}>New Entry</Link></p>
            </div>
 
         </>

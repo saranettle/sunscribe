@@ -52,8 +52,8 @@ function App() {
                     {/* Adding the routes for the pages that do require user-authentication. 
                     How this works may change, since I don't really know how to do user authentication lol. */}
                     <Route path="/home/:username" element={<User_Home/>} />
-                    <Route path="/entries" element={<Prev_Entries/>} />
-                    <Route path="/new" element={<New_Entry/>} />
+                    <Route path="/entries/:username" element={<Prev_Entries/>} />
+                    <Route path="/new/:username" element={<New_Entry/>} />
 
                 
                 </Routes>

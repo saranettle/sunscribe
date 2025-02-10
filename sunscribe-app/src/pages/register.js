@@ -24,7 +24,7 @@ export const Register = () => {
             },
         });
         if(response.status === 201){
-            alert(`Success! You have added a user to the tracker.`);
+            alert(`Success! Login to your account now.`);
         } else {
             alert(`Uh oh, something went wrong... error = ${response.status}`);
         }
