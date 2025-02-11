@@ -33,6 +33,7 @@ const entrySchema = mongoose.Schema({
 const entries = mongoose.model('Entries', entrySchema);
 
 
+// Create an entry model
 const createEntry = async (text, author) => {
     const entry = new entries({ 
         text: text, 
@@ -41,8 +42,19 @@ const createEntry = async (text, author) => {
     return entry.save();
 }
 
+// Retrieve an entry by author
+const retrieveEntryByAuthor = async (author) => {
+    try {
+        const entry = await entries.find({ author }); 
+        return entry;
+    } catch (error) {
+        console.error("Error retrieving entries by author:", error);
+        throw error;
+    }
+};
+
 
 
 
 // EXPORT the variables for use in the controller file.
-export { createEntry }
+export { createEntry, retrieveEntryByAuthor }

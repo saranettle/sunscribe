@@ -42,6 +42,24 @@ app.post ('/entries', (req,res) => {
         });
 });
 
+// Retrieve entries by author
+app.get('/entries/:author', (req, res) => {
+    entries.retrieveEntryByAuthor(req.params.author)
+    .then(entry => { 
+        if (entry !== null) {
+            console.log(`Request for entries by author is successful`);
+            res.json(entry);
+        } else {
+            res.status(404).json({ Error: 'The author that you provided does not match any of our current entries. Please try again.' });
+        }         
+     })
+    .catch(error => {
+        console.log(error);
+        res.status(400).json({ Error: 'There was a problem with retrieving the requested entries.' });
+    });
+
+});
+
 // RETRIEVE controller ****************************************************
 app.get('/users', (req, res) => {
     users.retrieveUsers()
