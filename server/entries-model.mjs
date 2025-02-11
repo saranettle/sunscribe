@@ -1,4 +1,4 @@
-// Models for the Users
+// Models for the Entries
 
 // Import dependencies.
 import mongoose from 'mongoose';
@@ -16,10 +16,9 @@ db.once("open", (err) => {
     if(err){
         res.status(500).json({ Error: 'The entry database failed to connect to the application.' });
     } else  {
-        console.log('Successfully connected to the entry database.');
+        console.log('Successfully connected to the Entry database.');
     }
 });
-
 
 
 // SCHEMA: Define the collection's schema.
@@ -52,9 +51,6 @@ const retrieveEntryByAuthor = async (author) => {
         throw error;
     }
 };
-
-
-
 
 // EXPORT the variables for use in the controller file.
 export { createEntry, retrieveEntryByAuthor }

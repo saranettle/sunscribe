@@ -5,10 +5,10 @@
   "license": "ISC",
   "author": "Sara Nettle",
   "type": "commonjs",
-  "main": "users-controller.mjs",
+  "main": "sunscribe-controller.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon users-controller.mjs"
+    "start": "nodemon sunscribe-controller.mjs"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
