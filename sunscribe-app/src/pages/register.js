@@ -25,10 +25,11 @@ export const Register = () => {
         });
         if(response.status === 201){
             alert(`Success! Login to your account now.`);
+            redirect("/login");
         } else {
             alert(`Uh oh, something went wrong... error = ${response.status}`);
         }
-        redirect("/login");
+        
     };
 
 

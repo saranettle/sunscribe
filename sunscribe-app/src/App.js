@@ -15,15 +15,14 @@ import About from './pages/about';
 import Login from './pages/login';
 import Register from './pages/register';
 
+//Post-login pages
 import User_Home from './pages/user_home';
 import Prev_Entries from './pages/prev_entries';
 import New_Entry from './pages/new_entry';
 
 
-// Define the function that renders the content in Routes, using State.
 function App() {
 
-  const [username, setUsername] = useState()
 
   return (
     <div className="App">
@@ -50,7 +49,8 @@ function App() {
                     <Route path="/register" element={<Register/>} />
 
                     {/* Adding the routes for the pages that do require user-authentication. 
-                    How this works may change, since I don't really know how to do user authentication lol. */}
+                    For now, user authentication doesn't actually exist. But this routing does give the appearance that
+                    a user can sign in and add entries under their username, and see past entries. */}
                     <Route path="/home/:username" element={<User_Home/>} />
                     <Route path="/entries/:username" element={<Prev_Entries/>} />
                     <Route path="/new/:username" element={<New_Entry/>} />
@@ -59,10 +59,6 @@ function App() {
                 </Routes>
               </section>
           </main>
-
-          <footer>
-            <p>&copy; 2023 Sara Nettle.</p>
-          </footer>
 
           </Container>
 

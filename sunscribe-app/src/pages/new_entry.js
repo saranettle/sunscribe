@@ -16,19 +16,26 @@ export const New_Entry = () => {
     
     const addEntry = async () => {
         const newEntry = { text, author: username };
-        const response = await fetch('/entries', {
-            method: 'post',
-            body: JSON.stringify(newEntry),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if(response.status === 201){
-            alert(`Success!`);
-        } else {
-            alert(`Uh oh, something went wrong... error = ${response.status}`);
-        }
-        redirect(`/home/${username}`);
+        const confirmed = window.confirm("Are you sure you want to save this journal entry?")
+
+        if (confirmed) {
+
+            const response = await fetch('/entries', {
+                method: 'post',
+                body: JSON.stringify(newEntry),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if(response.status === 201){
+                alert(`Success!`);
+            } else {
+                alert(`Uh oh, something went wrong... error = ${response.status}`);
+            }
+            redirect(`/home/${username}`);
+
+        } 
+        
     };
 
     return (
