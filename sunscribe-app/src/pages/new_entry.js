@@ -41,9 +41,15 @@ export const New_Entry = () => {
     return (
         <>
             
-           <Menu />
-           <div>
-            <h2>Create a new entry</h2>
+            <Row>
+            <Col sm={12} md={4}>
+              <Menu />
+            </Col>
+
+            <Col>
+            <h2 class="user_heading">Create a new entry</h2>
+           <div id="new_entry">
+            
             <textarea 
                 type="text"
                 placeholder=""
@@ -51,9 +57,13 @@ export const New_Entry = () => {
                 onChange={e => setText(e.target.value)} 
                 id="text">
                 </textarea>
-                <button onClick={addEntry}>Save Entry</button>
-            <p><Link to={`/home/${username}`}>Home</Link></p>
-           </div>
+                </div>
+                <Link to={`/home/${username}`}><button class="user_button">Go Back</button></Link>
+                <button class="user_button" onClick={addEntry}>Save Entry</button>
+            
+           
+           </Col>
+           </Row>
 
         </>
     );

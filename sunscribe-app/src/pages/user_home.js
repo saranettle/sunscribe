@@ -13,12 +13,21 @@ function User_Home() {
     return (
         <>
             
-           <Menu />
-           <div>
-            <h2>Welcome, { username }.</h2>
-            <p><Link to={`/new/${username}`}>New Entry</Link></p>
-           </div>
-
+           <Row>
+            <Col sm={12} md={4}>
+              <Menu />
+            </Col>
+           
+                <Col >
+                    
+                        <h2 class="user_heading">Welcome, { username }.</h2>
+                    
+                    <div id="user_homepage">
+                        <Link to={`/new/${username}`}><h2>New Entry</h2></Link>
+                    </div>
+                    </Col>
+                    </Row>
+                
         </>
     );
 }

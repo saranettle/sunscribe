@@ -38,7 +38,7 @@ export const Register = () => {
         <Row>
         <Col xs={{ span: 10, offset: 1 }} md={{ span: 6, offset: 3 }} xl={{ span: 4, offset: 4}}>
         <a href="/about">
-            <div class="homepage">
+            <div class="homepage homepage_inactive">
                 <h2>About</h2>
             </div>
         </a>
@@ -48,7 +48,7 @@ export const Register = () => {
         <Row>
         <Col xs={{ span: 10, offset: 1 }} md={{ span: 6, offset: 3 }} xl={{ span: 4, offset: 4}}>
         <a href="/login">
-            <div class="homepage">
+            <div class="homepage homepage_inactive">
                 <h2>Login</h2>
             </div>
         </a>
@@ -57,8 +57,9 @@ export const Register = () => {
 
         <Row>
         <Col xs={{ span: 10, offset: 1 }} md={{ span: 6, offset: 3 }} xl={{ span: 4, offset: 4}}>
-        <div class="homepage">
+        <div class="homepage" id="register_form">
             <h2>Register</h2>
+                
 
                 <label for="username">Username:</label>
                 <input
@@ -80,19 +81,20 @@ export const Register = () => {
                 <input
                             type="password"
                             value={password}
+                            placeholder="password"
                             onChange={e => setPassword(e.target.value)} 
                             id="password" />
 
-                <label for="submit" class="submitButton" >Submit</label>
+                <label for="submit" >Submit</label>
                         <button
                             type="submit"
                             onClick={addUser}
                             id="submit"
-                            class="submitButton"
+                            class="submit_button"
                         >Submit</button>
 
 
-            <button><a href="/">Back</a></button>
+            <a href="/"><button class="back_button">Back</button></a>
         </div>
         </Col>
         </Row>

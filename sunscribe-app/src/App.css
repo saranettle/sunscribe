@@ -14,6 +14,10 @@ h1 {
   color: #7E8C61;
 }
 
+.user_heading {
+  color:#7E8C61;
+}
+
 p {
   font-family: "Andada Pro", serif;
 }
@@ -22,10 +26,34 @@ a {
   text-decoration: none;
 }
 
+li {
+  font-family: "Andada Pro", serif;
+  color: #7E8C61;
+}
+
+textarea {
+  font-family: "Andada Pro", serif;
+  color:#7E8C61;
+}
+
+li a {
+  font-family: "Andada Pro", serif;
+  color: #7E8C61;
+  font-size: 1.3em;
+}
+
+li a:hover {
+  color:#E0CC24;
+}
+
 /* Layout */
 
 header {
   text-align: center;
+}
+
+.user_menu li {
+  list-style-type: none;
 }
 
 footer {
@@ -41,4 +69,109 @@ footer {
   color: white;
 }
 
-/* Form Specific */
+.homepage_inactive:hover {
+  background-color: #E0CC24;
+}
+
+.homepage a {
+  color: white;
+}
+
+#user_homepage {
+  text-align: center;
+  padding-top: .75em;
+  padding-bottom: .75em;
+  margin-top: 5px;
+  background-color: #7E8C61;
+  color: white;
+  width: 50%;
+}
+
+#user_homepage:hover {
+  background-color: #E0CC24;
+}
+
+#user_homepage a {
+  color: white;
+}
+
+#about_box {
+  padding-left: 1em;
+  padding-right: 1em;
+  
+}
+
+.about_text {
+  text-align: left;
+}
+
+#prev_entries {
+  width: 90%;
+  height: 500px;
+  overflow: auto;
+}
+
+#prev_entries li {
+  list-style-type: none;
+}
+
+/* Form/button Specific */
+button {
+  font-family: "Bellota", sans-serif;
+  border-radius: 15px;
+  background-color: white;
+  color: #7E8C61;
+  border: none;
+  font-size: 1.5em; 
+  
+}
+
+form {
+  font-family: "Andada Pro", serif;
+}
+
+.home_form > * {
+  margin-top: 10px;
+}
+
+.home_form input {
+  width: 75%;
+}
+
+#register_form > * {
+  margin-top: 10px;
+}
+
+#register_form input {
+  width: 75%;
+}
+
+button:hover {
+  background-color: #E0CC24;
+}
+
+.back_button {
+  width: 75%;
+  margin-top: 10px;
+}
+
+.user_button {
+  background-color: #7E8C61;
+  color: white;
+  margin-top: 10px;
+  width: 35%;
+  margin-right: 10px;
+}
+
+.submit_button {
+  width: 75%;
+}
+
+label {
+  display: none;
+}
+
+#new_entry textarea {
+  height: 500px;
+  width: 90%;
+}

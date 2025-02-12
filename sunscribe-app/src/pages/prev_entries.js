@@ -35,22 +35,37 @@ function Prev_Entries() {
 
     return (
         <>
-            <Menu />
-            <div>
-                <h2>Previous Entries</h2>
+            
+
+            <Row>
+            <Col sm={12} md={4}>
+              <Menu />
+            </Col>
+
+            <Col>
+            <h2 class="user_heading">Previous Entries</h2>
+            <div id="prev_entries">
+                
                 {entries.length === 0 ? (
                     <p>No entries found for {username}.</p> // If no entries, display a message
                 ) : (
                     <ul>
-                        {entries.map((entry) => (
-                            <li key={entry._id}>
-                                {entry.text} {/* Display each entry */}
-                            </li>
-                        ))}
+                        {entries.flatMap((entry, index) => 
+                            index < entries.length -1
+                                ? [
+                                    <li key={entry._id}>{entry.text}</li>,
+                                    <li key={`separator-${entry._id}`}>-----------------------------------</li>
+                                ]
+                                : [<li key={entry._id}>{entry.text}</li>]
+                        )}
+                        
                     </ul>
                 )}
-                <p><Link to={`/home/${username}`}>Home</Link></p>
+                
             </div>
+            <Link to={`/home/${username}`}><button class="user_button">Go Back</button></Link>
+            </Col>
+            </Row>
         </>
     );
 }
