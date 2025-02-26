@@ -175,3 +175,15 @@ label {
   height: 500px;
   width: 90%;
 }
+
+#delete_button {
+  display:block;
+  background-color: #7E8C61;
+  color: white;
+  margin-top: 10px;
+  width: 20%;
+}
+
+#delete_button:hover {
+  background-color: #E0CC24;
+}

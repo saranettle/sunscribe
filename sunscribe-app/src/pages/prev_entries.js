@@ -30,7 +30,7 @@ function Prev_Entries() {
     }, [username]); // Fetch entries when username changes
 
     const handleDelete = async (id) => {
-        
+
         const confirmed = window.confirm("Are you sure you want to delete this journal entry?")
 
         if (confirmed) {
@@ -78,7 +78,8 @@ function Prev_Entries() {
                                         <li>
                                             {entry.text}
                                             <button 
-                                                onClick={() => handleDelete(entry._id)}>
+                                                onClick={() => handleDelete(entry._id)}
+                                                id="delete_button">
                                                 Delete
                                             </button>
                                         </li>
