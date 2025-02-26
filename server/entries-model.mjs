@@ -52,5 +52,11 @@ const retrieveEntryByAuthor = async (author) => {
     }
 };
 
+// DELETE entries model based on _id  *****************************************
+const deleteEntryById = async (_id) => {
+    const result = await entries.deleteOne({_id: _id});
+    return result.deletedCount;
+};
+
 // EXPORT the variables for use in the controller file.
-export { createEntry, retrieveEntryByAuthor }
+export { createEntry, retrieveEntryByAuthor, deleteEntryById }

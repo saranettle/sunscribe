@@ -59,6 +59,23 @@ app.get('/entries/:author', (req, res) => {
 
 });
 
+// DELETE entries Controller ******************************
+app.delete('/entries/:_id', (req, res) => {
+    entries.deleteEntryById(req.params._id)
+        .then(deletedCount => {
+            if (deletedCount === 1) {
+                console.log(`Based on its ID, the ${deletedCount} entry was deleted.`);
+                res.status(200).send({ Success: 'The entry was removed from Entry Database.' });
+            } else {
+                res.status(404).json({ Error: 'Woops! The ID that you provided does not match any entries. Please try again.' });
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            res.send({ Error: 'Woops! There was an error while you attempted to delete that entry.' });
+        });
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
