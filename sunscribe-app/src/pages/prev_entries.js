@@ -29,6 +29,29 @@ function Prev_Entries() {
         fetchEntries(); // Call the function when the component mounts
     }, [username]); // Fetch entries when username changes
 
+    const handleDelete = async (id) => {
+        
+        const confirmed = window.confirm("Are you sure you want to delete this journal entry?")
+
+        if (confirmed) {
+
+            try {
+                const response = await fetch(`/entries/${id}`, {
+                    method: 'DELETE',
+                });
+                if (!response.ok) {
+                    throw new Error(`Failed to delete entry: ${response.statusText}`);
+                }
+                // Remove the deleted entry from state
+                setEntries(entries.filter(entry => entry._id !== id));
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+
+        }
+        
+
     // Show loading, error, or the actual entries
     if (loading) return <p>Loading entries...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -50,16 +73,19 @@ function Prev_Entries() {
                     <p>No entries found for {username}.</p> // If no entries, display a message
                 ) : (
                     <ul>
-                        {entries.flatMap((entry, index) => 
-                            index < entries.length -1
-                                ? [
-                                    <li key={entry._id}>{entry.text}</li>,
-                                    <li key={`separator-${entry._id}`}>-----------------------------------</li>
-                                ]
-                                : [<li key={entry._id}>{entry.text}</li>]
-                        )}
-                        
-                    </ul>
+                                {entries.map((entry, index) => (
+                                    <React.Fragment key={entry._id}>
+                                        <li>
+                                            {entry.text}
+                                            <button 
+                                                onClick={() => handleDelete(entry._id)}>
+                                                Delete
+                                            </button>
+                                        </li>
+                                        {index < entries.length - 1 && <li>-----------------------------------</li>}
+                                    </React.Fragment>
+                                ))}
+                            </ul>
                 )}
                 
             </div>
