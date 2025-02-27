@@ -1,6 +1,6 @@
 {
-  "name": "nettles-portfolio-frontend",
-  "version": "2023",
+  "name": "sunscribe",
+  "version": "2025",
   "private": true,
   "proxy": "http://localhost:3000",
   "dependencies": {

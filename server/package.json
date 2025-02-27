@@ -16,6 +16,7 @@
     "express-async-handler": "^1.2.0",
     "mongoose": "^8.9.7",
     "nodemon": "^3.1.9",
-    "rest": "^2.0.0"
+    "rest": "^2.0.0",
+    "zeromq": "^6.3.0"
   }
 }

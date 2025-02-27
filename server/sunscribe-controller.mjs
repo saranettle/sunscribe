@@ -1,6 +1,7 @@
 // Controllers for the Users and Entries
 import 'dotenv/config';
 import express from 'express';
+import * as zmq from "zeromq";
 import * as users from './users-model.mjs';
 import * as entries from './entries-model.mjs'
 
@@ -8,6 +9,13 @@ const PORT = process.env.PORT;
 const app = express();
 app.use(express.json());  // REST needs JSON MIME type.
 
+const socket = new zmq.Request();
+socket.connect("tcp://localhost:5555");
+console.log("Connected to Timer-Service at tcp://localhost:5555")
+
+// ***********************************************************************************
+// ***********************************************************************************
+//********************************* User Controllers *********************************
 
 // CREATE controller for Users ******************************************
 app.post ('/users', (req,res) => { 
@@ -44,6 +52,9 @@ app.get('/users/:username', async (req, res) => {
     }
 });
 
+// ************************************************************************************
+// ************************************************************************************
+//********************************* Entry Controllers *********************************
 
 // CREATE controller for Entries ******************************************
 app.post ('/entries', (req,res) => { 
@@ -94,6 +105,12 @@ app.delete('/entries/:_id', (req, res) => {
             res.send({ Error: 'Woops! There was an error while you attempted to delete that entry.' });
         });
 });
+
+// ************************************************************************************
+// ************************************************************************************
+//******************************** Timer Microservice *********************************
+
+
 
 
 app.listen(PORT, () => {
