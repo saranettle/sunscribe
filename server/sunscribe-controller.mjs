@@ -26,22 +26,22 @@ app.post ('/users', (req,res) => {
         });
 });
 
-// UPDATE controller for Users ************************************
-app.put('/edit_account/:username', (req, res) => {
-    users.updateUser(
-        req.params._id, 
-        req.body.username, 
-        req.body.email, 
-        req.body.password
-    )
-    .then(user => {
-        console.log(`You successfully updated "${user.username}".`);
+// GET controller for Users ************************************
+app.get('/users/:username', async (req, res) => {
+    try {
+        console.log(`Fetching user: ${req.params.username}`); // Debugging log
+        const user = await users.getUserByUsername(req.params.username); // Use the function
+
+        if (!user) {
+            console.log("User not found");
+            return res.status(404).json({ error: 'User not found' });
+        }
+
         res.json(user);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(400).json({ Error: 'Woops! There was an issue while you attempted to make that change.' });
-    });
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({ error: 'Woops! Something went wrong.' });
+    }
 });
 
 

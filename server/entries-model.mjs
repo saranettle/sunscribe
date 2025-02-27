@@ -23,8 +23,10 @@ db.once("open", (err) => {
 
 // SCHEMA: Define the collection's schema.
 const entrySchema = mongoose.Schema({
-	text:              { type: String, required: true },
-	author:           { type: String, required: true },
+	text:               { type: String, required: true },
+	author:             { type: String, required: true },
+    create_time:        { type: Date, required: true, default: Date.now },
+    write_time:         { type: String }
 });
 
 // Compile the model from the schema 

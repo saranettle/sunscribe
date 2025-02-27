@@ -11,12 +11,12 @@ mongoose.connect(
 const db = mongoose.connection;
 
 // Confirm that the database has connected and print a message in the console.
-db.once("open", (err) => {
-    if(err){
-        res.status(500).json({ Error: 'The user database failed to connect to the application.' });
-    } else  {
-        console.log('Successfully connected to the User database.');
-    }
+db.once("open", () => {
+    console.log('Successfully connected to the User database.');
+});
+
+db.on("error", (err) => {
+    console.error('Database connection error:', err);
 });
 
 
@@ -43,21 +43,11 @@ const createUser = async (username, email, password) => {
     return user.save();
 }
 
+// Retrieve model *****************************************
+const getUserByUsername = async (username) => {
+    return await users.findOne({ username: username });
+};
 
-// UPDATE model *****************************************************
-const updateUser = async (_id, username, email, password) => {
-    const result = await users.replaceOne({_id: _id }, {
-        username: username,
-        email: email,
-        password: password
-    });
-    return { 
-        _id: _id, 
-        username: username,
-        email: email,
-        password: password 
-    }
-}
 
 // EXPORT the variables for use in the controller file.
-export { createUser, updateUser }
+export { createUser, getUserByUsername }
