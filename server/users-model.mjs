@@ -19,6 +19,7 @@ db.once("open", (err) => {
     }
 });
 
+
 // SCHEMA: Define the collection's schema.
 const userSchema = mongoose.Schema({
 	username:              { type: String, required: true, unique: true },
@@ -27,11 +28,9 @@ const userSchema = mongoose.Schema({
 });
 
 
-
 // Compile the model from the schema 
 // by defining the collection username "users".
 const users = mongoose.model('Users', userSchema);
-
 
 
 // CREATE model *****************************************
@@ -44,5 +43,21 @@ const createUser = async (username, email, password) => {
     return user.save();
 }
 
+
+// UPDATE model *****************************************************
+const updateUser = async (_id, username, email, password) => {
+    const result = await users.replaceOne({_id: _id }, {
+        username: username,
+        email: email,
+        password: password
+    });
+    return { 
+        _id: _id, 
+        username: username,
+        email: email,
+        password: password 
+    }
+}
+
 // EXPORT the variables for use in the controller file.
-export { createUser }
+export { createUser, updateUser }

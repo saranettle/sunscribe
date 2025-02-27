@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Menu from '../components/menu';
 
-function Prev_Entries() {
+function PrevEntries() {
     const { username } = useParams(); // Get username from the URL params
     const [entries, setEntries] = useState([]); // Store entries in state
     const [loading, setLoading] = useState(true); // Loading state for async fetch
@@ -97,4 +97,4 @@ function Prev_Entries() {
     );
 }
 
-export default Prev_Entries;
+export default PrevEntries;

@@ -1,12 +1,12 @@
 import { React } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 // Importing components for the application
 import Menu from '../components/menu';
 
-function UserHome() {
+function EditAccount() {
 
     const { username } = useParams();
 
@@ -20,11 +20,9 @@ function UserHome() {
            
                 <Col >
                     
-                        <h2 class="user_heading">Welcome, { username }.</h2>
+                        <h2 class="user_heading">Edit User Settings for { username }.</h2>
                     
-                    <div id="user_homepage">
-                        <Link to={`/new/${username}`}><h2>New Entry</h2></Link>
-                    </div>
+                    
                     </Col>
                     </Row>
                 
@@ -32,4 +30,4 @@ function UserHome() {
     );
 }
 
-export default UserHome;
+export default EditAccount;

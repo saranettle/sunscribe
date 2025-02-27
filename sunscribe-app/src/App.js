@@ -1,5 +1,5 @@
 // Import dependencies
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Importing bootstrap
@@ -16,9 +16,10 @@ import Login from './pages/login';
 import Register from './pages/register';
 
 //Post-login pages
-import User_Home from './pages/user_home';
-import Prev_Entries from './pages/prev_entries';
-import New_Entry from './pages/new_entry';
+import UserHome from './pages/user_home';
+import PrevEntries from './pages/prev_entries';
+import NewEntry from './pages/new_entry';
+import EditAccount from './pages/edit_account';
 
 
 function App() {
@@ -51,9 +52,10 @@ function App() {
                     {/* Adding the routes for the pages that do require user-authentication. 
                     For now, user authentication doesn't actually exist. But this routing does give the appearance that
                     a user can sign in and add entries under their username, and see past entries. */}
-                    <Route path="/home/:username" element={<User_Home/>} />
-                    <Route path="/entries/:username" element={<Prev_Entries/>} />
-                    <Route path="/new/:username" element={<New_Entry/>} />
+                    <Route path="/home/:username" element={<UserHome/>} />
+                    <Route path="/entries/:username" element={<PrevEntries/>} />
+                    <Route path="/new/:username" element={<NewEntry/>} />
+                    <Route path="/edit_account/:username" element={<EditAccount/>} />
 
                 
                 </Routes>

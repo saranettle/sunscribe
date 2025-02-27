@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 // Importing components for the application
 import Menu from '../components/menu';
 
-export const New_Entry = () => {
+export const NewEntry = () => {
 
     const { username } = useParams();
 
@@ -69,4 +69,4 @@ export const New_Entry = () => {
     );
 }
 
-export default New_Entry;
+export default NewEntry;

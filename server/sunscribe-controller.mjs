@@ -26,6 +26,25 @@ app.post ('/users', (req,res) => {
         });
 });
 
+// UPDATE controller for Users ************************************
+app.put('/edit_account/:username', (req, res) => {
+    users.updateUser(
+        req.params._id, 
+        req.body.username, 
+        req.body.email, 
+        req.body.password
+    )
+    .then(user => {
+        console.log(`You successfully updated "${user.username}".`);
+        res.json(user);
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(400).json({ Error: 'Woops! There was an issue while you attempted to make that change.' });
+    });
+});
+
+
 // CREATE controller for Entries ******************************************
 app.post ('/entries', (req,res) => { 
     entries.createEntry(
