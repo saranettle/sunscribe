@@ -15,7 +15,8 @@ def main():
     # Create a ZMQ context object and use it to bind a socket.
     context = zmq.Context()
     socket = context.socket(zmq.REP)
-    socket.bind("tcp://*:5555")
+    socket.bind("tcp://127.0.0.1:5555")
+    print("Waiting for messages.")
 
     # Listen for a request from client.
     while True:

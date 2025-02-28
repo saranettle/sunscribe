@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());  // REST needs JSON MIME type.
 
 const socket = new zmq.Request();
-socket.connect("tcp://localhost:5555");
+socket.connect("tcp://127.0.0.1:5555");
 console.log("Connected to Timer-Service at tcp://localhost:5555")
 
 // ***********************************************************************************
@@ -106,9 +106,29 @@ app.delete('/entries/:_id', (req, res) => {
         });
 });
 
+
 // ************************************************************************************
 // ************************************************************************************
 //******************************** Timer Microservice *********************************
+
+app.post("/send-start", async (req, res) => {
+    try {
+        const { message } = req.body;
+        console.log('Received from Sunscribe App:', message); // confirming message is received
+
+        // Send message to the Timer-Service socket
+        await socket.send(message);
+        console.log("Sending:", message);
+
+        // Wait for the response from the Timer-Service
+        const [response] = await socket.receive();
+        console.log("Timer-Service Response:", response.toString()); 
+      
+    } catch (error) {
+        console.error("Error sending message to Timer-Service:", error);
+        res.status(500).json({ error: "Failed to send message" });
+    }
+});
 
 
 
