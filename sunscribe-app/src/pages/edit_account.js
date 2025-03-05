@@ -56,7 +56,7 @@ function EditAccount() {
     
             const updatedUser = await response.json();
             setSuccessMessage('Account updated successfully!');
-            setPassword(''); // Clear password for security
+            setPassword(''); 
     
             setTimeout(() => {
                 navigate(`/home/${username}`); // Redirect user after update
