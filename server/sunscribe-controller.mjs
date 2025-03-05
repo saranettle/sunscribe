@@ -61,6 +61,7 @@ app.post ('/entries', (req,res) => {
     entries.createEntry(
         req.body.text, 
         req.body.author, 
+        req.body.write_time
         )
         .then(entry => {
             console.log(`Success! Entry added.`);
@@ -120,13 +121,30 @@ app.post("/send-start", async (req, res) => {
         await socket.send(message);
         console.log("Sending:", message);
 
-        // Wait for the response from the Timer-Service
         const [response] = await socket.receive();
         console.log("Timer-Service Response:", response.toString()); 
       
     } catch (error) {
         console.error("Error sending message to Timer-Service:", error);
         res.status(500).json({ error: "Failed to send message" });
+    }
+});
+
+app.post("/get-writing-time", async (req, res) => {
+    try {
+        const { message } = req.body;
+        console.log('Sending message to Timer-Service:', message);
+
+        await socket.send('stop');
+
+        // Receive response - time in sec (in a string)
+        const [response] = await socket.receive();
+        console.log("Received from Timer-Service:", response.toString());
+
+        res.json({ success: true, response: response.toString() });
+    } catch (error) {
+        console.error("Error receiving response from Timer-Service:", error);
+        res.status(500).json({ error: "Timer-Service failure" });
     }
 });
 

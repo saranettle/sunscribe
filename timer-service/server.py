@@ -36,7 +36,7 @@ def main():
                     print(f"Sending response to the client: {response}")
                 case "STOP" | "stop":
                     total_time = time.time() - start_time
-                    response = f"{total_time: .1f}"
+                    response = f"{total_time:.1f}"
                     socket.send_string(response)
                     print(f"Sending response to the client: {response} seconds")
                 case _:

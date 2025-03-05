@@ -15,28 +15,54 @@ export const NewEntry = () => {
     const redirect = useNavigate();
     
     const addEntry = async () => {
-        const newEntry = { text, author: username };
-        const confirmed = window.confirm("Are you sure you want to save this journal entry?")
-
-        if (confirmed) {
-
-            const response = await fetch('/entries', {
-                method: 'post',
-                body: JSON.stringify(newEntry),
+        const confirmed = window.confirm("Are you sure you want to save this journal entry?");
+        if (!confirmed) return;
+    
+        try {
+            // send STOP to Timer-Service to get the writing time
+            const timerService = await fetch('/get-writing-time', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({ message: 'stop' }), 
             });
-            if(response.status === 201){
+    
+            if (!timerService.ok) {
+                throw new Error(`Failed to communicate with Timer-Service: ${timerService.status}`);
+            }
+    
+            const timerServiceData = await timerService.json();
+            console.log('Timer-Service Response:', timerServiceData);
+    
+            // set up newEntry creation
+            const newEntry = {
+                text,
+                author: username,
+                write_time: timerServiceData.response, 
+            };
+    
+            const response = await fetch('/entries', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newEntry),
+            });
+    
+            if (response.status === 201) {
                 alert(`Success!`);
+                redirect(`/home/${username}`);
             } else {
                 alert(`Uh oh, something went wrong... error = ${response.status}`);
             }
-            redirect(`/home/${username}`);
-
-        } 
-        
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while saving your entry.');
+        }
     };
+    
+    
 
     return (
         <>

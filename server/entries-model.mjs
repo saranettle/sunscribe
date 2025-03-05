@@ -35,10 +35,11 @@ const entries = mongoose.model('Entries', entrySchema);
 
 
 // Create an entry model
-const createEntry = async (text, author) => {
+const createEntry = async (text, author, write_time) => {
     const entry = new entries({ 
         text: text, 
-        author: author
+        author: author,
+        write_time: write_time
     });
     return entry.save();
 }
