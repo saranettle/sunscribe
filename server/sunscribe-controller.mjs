@@ -9,9 +9,15 @@ const PORT = process.env.PORT;
 const app = express();
 app.use(express.json());  // REST needs JSON MIME type.
 
-const socket = new zmq.Request();
-socket.connect("tcp://127.0.0.1:5555");
+// timer microservice socket
+const timer_socket = new zmq.Request();
+timer_socket.connect("tcp://127.0.0.1:5555");
 console.log("Connected to Timer-Service at tcp://localhost:5555")
+
+// email microservice socket
+const email_socket = new zmq.Request();
+email_socket.connect("tcp://127.0.0.1:5556");
+console.log("Connected to Email-Service at tcp://localhost:5556")
 
 // ***********************************************************************************
 // ***********************************************************************************
@@ -118,10 +124,10 @@ app.post("/send-start", async (req, res) => {
         console.log('Received from Sunscribe App:', message); // confirming message is received
 
         // Send message to the Timer-Service socket
-        await socket.send(message);
+        await timer_socket.send(message);
         console.log("Sending:", message);
 
-        const [response] = await socket.receive();
+        const [response] = await timer_socket.receive();
         console.log("Timer-Service Response:", response.toString()); 
       
     } catch (error) {
@@ -135,10 +141,10 @@ app.post("/get-writing-time", async (req, res) => {
         const { message } = req.body;
         console.log('Sending message to Timer-Service:', message);
 
-        await socket.send('stop');
+        await timer_socket.send('stop');
 
         // Receive response - time in sec (in a string)
-        const [response] = await socket.receive();
+        const [response] = await timer_socket.receive();
         console.log("Received from Timer-Service:", response.toString());
 
         res.json({ success: true, response: response.toString() });
@@ -148,7 +154,27 @@ app.post("/get-writing-time", async (req, res) => {
     }
 });
 
+// ************************************************************************************
+// ************************************************************************************
+//******************************** Email Microservice *********************************
 
+app.post("/test-email", async (req, res) => {
+    try {
+        const { email } = req.body;
+        console.log('Received email from Sunscribe App:', req.body); // confirming message is received
+        console.log('Sending test email to user now.')
+
+        // Send message to the Email-Service socket
+        await email_socket.send(email);
+
+        const [response] = await email_socket.receive();
+        console.log("Email-Service Response:", response.toString()); 
+      
+    } catch (error) {
+        console.error("Error sending message to Email-Service:", error);
+        res.status(500).json({ error: "Failed to send message" });
+    }
+});
 
 
 app.listen(PORT, () => {

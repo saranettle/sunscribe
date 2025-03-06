@@ -4,6 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Menu from '../components/menu';
 
+import TestEmailButton from '../components/testEmailButton';
+
 function EditAccount() {
     const { username } = useParams();
     const navigate = useNavigate(); // For redirecting after update
@@ -98,8 +100,9 @@ function EditAccount() {
                                 placeholder="Enter new password"
                             />
                         </div>
-                        <button type="submit">Update</button>
+                        <button type="submit">Update Account Settings</button>
                     </form>
+                    <TestEmailButton email={email}/>
                     <button onClick={() => navigate(-1)}>Cancel</button>
                 </Col>
             </Row>
