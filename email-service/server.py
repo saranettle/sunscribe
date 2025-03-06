@@ -17,16 +17,25 @@ def main():
     sender_email = os.getenv("SENDER_EMAIL")
     email_password = os.getenv("EMAIL_PASSWORD")
 
+    # referencing: https://www.geeksforgeeks.org/send-mail-gmail-account-using-python/
+    # creates SMTP session, login
+    session = smtplib.SMTP('smtp.gmail.com', 587)
+    session.starttls()
+
+    session.login(sender_email, email_password)
+
+    email_body = "Confirming that email notifications work"
+    
 
     # Listen for a request from client.
     while True:
         message = socket.recv()
-        message = message.decode()
+        receiver_email = message.decode()
 
         # Determine approriate action for request
         if len(message) > 0:
-            print(f"Received email address from the client: {message}")
-            match message:
+            print(f"Received email address from the client: {receiver_email}")
+            match receiver_email:
                 case 'Q' | "q":
                     # tell the service to stop running
                     break
@@ -34,9 +43,12 @@ def main():
                 case _:
                     # assume the message being received is an email 
                     # (in the future, we can validate the message)
-                    pass
+                    # sending the mail
+                    response = "Sending email to " + receiver_email
+                    socket.send_string(response)
+                    session.sendmail(sender_email, receiver_email, email_body)
                     
-    
+    session.quit()
     context.destroy()
 
 
