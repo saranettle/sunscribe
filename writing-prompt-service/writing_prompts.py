@@ -1,7 +1,7 @@
 # Writing prompts are from: https://biz.thyme-is-honey.com/blog/2021-10-25-90-journal-prompts/
 # Please contact if you would like me to remove these prompts.
 
-writing_prompts = {
+prompts = {
     1: "Describe, in detail, what your life looks like 5 years from now. What do you do for fun? For work? Where do you live? Where do you drink your coffee in the morning?", 
     2: "If you had $100,000 magically appear in your bank account, how would you spend it?", 
     3: "If your body could speak to you, what would it say?", 
