@@ -5,14 +5,14 @@ import Col from 'react-bootstrap/Col';
 
 // Importing components for the application
 import Menu from '../components/menu';
+import RandomPrompt from '../components/randomPrompt';
 
 export const NewEntry = () => {
 
     const { username } = useParams();
-
     const [text, setText]       = useState('');
-        
     const redirect = useNavigate();
+    const prompt = RandomPrompt();
     
     const addEntry = async () => {
         const confirmed = window.confirm("Are you sure you want to save this journal entry?");
@@ -78,7 +78,7 @@ export const NewEntry = () => {
             
             <textarea 
                 type="text"
-                placeholder=""
+                placeholder={ prompt }
                 value={text}
                 onChange={e => setText(e.target.value)} 
                 id="text">

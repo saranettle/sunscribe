@@ -19,6 +19,11 @@ const email_socket = new zmq.Request();
 email_socket.connect("tcp://127.0.0.1:5556");
 console.log("Connected to Email-Service at tcp://localhost:5556")
 
+// random prompt microservice socket
+const prompt_socket = new zmq.Request();
+prompt_socket.connect("tcp://127.0.0.1:5557");
+console.log("Connected to Writing-Prompt-Service at tcp://localhost:5557")
+
 // ***********************************************************************************
 // ***********************************************************************************
 //********************************* User Controllers *********************************
@@ -121,7 +126,7 @@ app.delete('/entries/:_id', (req, res) => {
 app.post("/send-start", async (req, res) => {
     try {
         const { message } = req.body;
-        console.log('Received from Sunscribe App:', message); // confirming message is received
+        console.log('Received from Sunscribe App to start timer:', message); // confirming message is received
 
         // Send message to the Timer-Service socket
         await timer_socket.send(message);
@@ -173,6 +178,28 @@ app.post("/test-email", async (req, res) => {
     } catch (error) {
         console.error("Error sending message to Email-Service:", error);
         res.status(500).json({ error: "Failed to send message" });
+    }
+});
+
+// ************************************************************************************
+// ************************************************************************************
+//**************************** Writing Prompt Microservice *****************************
+
+app.get("/get-prompt", async (req, res) => {
+    try {
+        
+        console.log('Received message to generate a random writing prompt.');
+
+        await prompt_socket.send('start');
+
+        // Receive response - writing prompt
+        const [response] = await prompt_socket.receive();
+        console.log("Received from Writing-Prompt-Service:", response.toString());
+
+        res.json({ success: true, response: response.toString() });
+    } catch (error) {
+        console.error("Error receiving response from Writing-Prompt-Service:", error);
+        res.status(500).json({ error: "Writing-Prompt-Service failure" });
     }
 });
 
