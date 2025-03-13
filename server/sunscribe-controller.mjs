@@ -3,7 +3,8 @@ import 'dotenv/config';
 import express from 'express';
 import * as zmq from "zeromq";
 import * as users from './users-model.mjs';
-import * as entries from './entries-model.mjs'
+import { entries, createEntry, retrieveEntryByAuthor, deleteEntryById } from './entries-model.mjs';
+
 
 const PORT = process.env.PORT;
 const app = express();
@@ -23,6 +24,11 @@ console.log("Connected to Email-Service at tcp://localhost:5556")
 const prompt_socket = new zmq.Request();
 prompt_socket.connect("tcp://127.0.0.1:5557");
 console.log("Connected to Writing-Prompt-Service at tcp://localhost:5557")
+
+// word count microservice socket
+const wordcount_socket = new zmq.Request();
+wordcount_socket.connect("tcp://127.0.0.1:5558");
+console.log("Connected to Word-Count-Service at tcp://localhost:5558");
 
 // ***********************************************************************************
 // ***********************************************************************************
@@ -69,7 +75,7 @@ app.get('/users/:username', async (req, res) => {
 
 // CREATE controller for Entries ******************************************
 app.post ('/entries', (req,res) => { 
-    entries.createEntry(
+    createEntry(
         req.body.text, 
         req.body.author, 
         req.body.write_time
@@ -86,7 +92,7 @@ app.post ('/entries', (req,res) => {
 
 // RETRIEVE entries by author ******************************************
 app.get('/entries/:author', (req, res) => {
-    entries.retrieveEntryByAuthor(req.params.author)
+    retrieveEntryByAuthor(req.params.author)
     .then(entry => { 
         if (entry !== null) {
             res.json(entry);
@@ -103,7 +109,7 @@ app.get('/entries/:author', (req, res) => {
 
 // DELETE entries Controller ******************************
 app.delete('/entries/:_id', (req, res) => {
-    entries.deleteEntryById(req.params._id)
+    deleteEntryById(req.params._id)
         .then(deletedCount => {
             if (deletedCount === 1) {
                 console.log(`Based on its ID, the ${deletedCount} entry was deleted.`);
@@ -202,6 +208,32 @@ app.get("/get-prompt", async (req, res) => {
         res.status(500).json({ error: "Writing-Prompt-Service failure" });
     }
 });
+
+// *************************************************************************************
+// *************************************************************************************
+// ***************************** Word Count Microservice *******************************
+
+app.get("/get-word-count/:author", async (req, res) => {
+    try {
+        const { author } = req.params;
+        const userEntries = await entries.find({ author });
+
+        if (!userEntries.length) {
+            return res.json({ success: true, wordCount: 0 });
+        }
+
+        const allText = userEntries.map(entry => entry.text).join(" "); // Concatenate all entries
+
+        await wordcount_socket.send(allText);
+        const [response] = await wordcount_socket.receive();
+        
+        res.json({ success: true, wordCount: response.toString() });
+    } catch (error) {
+        console.error("Error retrieving word count:", error);
+        res.status(500).json({ error: "Failed to get word count" });
+    }
+});
+
 
 
 app.listen(PORT, () => {

@@ -31,8 +31,7 @@ const entrySchema = mongoose.Schema({
 
 // Compile the model from the schema 
 
-const entries = mongoose.model('Entries', entrySchema);
-
+export const entries = mongoose.model("Entries", entrySchema);
 
 // Create an entry model
 const createEntry = async (text, author, write_time) => {
