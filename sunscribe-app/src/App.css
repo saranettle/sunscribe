@@ -163,6 +163,10 @@ button:hover {
   margin-right: 10px;
 }
 
+.edit_account {
+  display:block;
+}
+
 .submit_button {
   width: 75%;
 }

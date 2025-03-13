@@ -5,29 +5,26 @@ import Col from 'react-bootstrap/Col';
 import Menu from '../components/menu';
 
 function PrevEntries() {
-    const { username } = useParams(); // Get username from the URL params
-    const [entries, setEntries] = useState([]); // Store entries in state
-    const [loading, setLoading] = useState(true); // Loading state for async fetch
-    const [error, setError] = useState(null); // Error state
+    const { username } = useParams();
+    const [entries, setEntries] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchEntries = async () => {
             try {
-                const response = await fetch(`/entries/${username}`); // Fetch entries by author
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.status} - ${response.statusText}`);
-                }
+                const response = await fetch(`/entries/${username}`);
+                if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
                 const data = await response.json();
-                setEntries(data); // Store fetched entries
+                setEntries(data);
             } catch (err) {
-                setError(err.message); // Set error message if fetch fails
+                setError(err.message);
             } finally {
-                setLoading(false); // Set loading to false once fetch is complete
+                setLoading(false);
             }
         };
-
-        fetchEntries(); // Call the function when the component mounts
-    }, [username]); // Fetch entries when username changes
+        fetchEntries();
+    }, [username]);
 
     const handleDelete = async (id) => {
 
@@ -51,6 +48,9 @@ function PrevEntries() {
 
         }
         
+    const formatDate = (isoDate) => {
+        return new Date(isoDate).toLocaleString(); // Converts to readable date-time format
+    };
 
     // Show loading, error, or the actual entries
     if (loading) return <p>Loading entries...</p>;
@@ -58,25 +58,23 @@ function PrevEntries() {
 
     return (
         <>
-            
-
             <Row>
-            <Col sm={12} md={4}>
-              <Menu />
-            </Col>
-
-            <Col>
-            <h2 class="user_heading">Previous Entries</h2>
-            <div id="prev_entries">
-                
-                {entries.length === 0 ? (
-                    <p>No entries found for {username}.</p> // If no entries, display a message
-                ) : (
-                    <ul>
+                <Col sm={12} md={4}>
+                    <Menu />
+                </Col>
+                <Col>
+                    <h2 className="user_heading">Previous Entries</h2>
+                    <div id="prev_entries">
+                        {entries.length === 0 ? (
+                            <p>No entries found for {username}.</p>
+                        ) : (
+                            <ul>
                                 {entries.map((entry, index) => (
                                     <React.Fragment key={entry._id}>
                                         <li>
-                                            {entry.text}
+                                            <p><strong>Entry:</strong> {entry.text}</p>
+                                            <p><strong>Created At:</strong> {formatDate(entry.create_time)}</p>
+                                            <p><strong>Time Spent Writing:</strong> {entry.write_time} seconds</p>
                                             <button 
                                                 onClick={() => handleDelete(entry._id)}
                                                 id="delete_button">
@@ -87,11 +85,10 @@ function PrevEntries() {
                                     </React.Fragment>
                                 ))}
                             </ul>
-                )}
-                
-            </div>
-            <Link to={`/home/${username}`}><button class="user_button">Go Back</button></Link>
-            </Col>
+                        )}
+                    </div>
+                    <Link to={`/home/${username}`}><button className="user_button">Go Back</button></Link>
+                </Col>
             </Row>
         </>
     );

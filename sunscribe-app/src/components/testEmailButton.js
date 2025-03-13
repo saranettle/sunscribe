@@ -31,7 +31,7 @@ function TestEmailButton({ email }) {
     return (
         <>
                 
-            <button onClick={handleClick}>Click Here to Test Email Notifications</button>
+            <button class="user_button edit_account" onClick={handleClick}>Click Here to Test Email Notifications</button>
              
         </>
     );

@@ -85,21 +85,20 @@ app.post ('/entries', (req,res) => {
 });
 
 // RETRIEVE entries by author ******************************************
-app.get('/entries/:author', (req, res) => {
-    entries.retrieveEntryByAuthor(req.params.author)
-    .then(entry => { 
-        if (entry !== null) {
+app.get('/entries/:author', async (req, res) => {
+    try {
+        const entry = await entries.retrieveEntryByAuthor(req.params.author);
+        if (entry.length > 0) {
             res.json(entry);
         } else {
             res.status(404).json({ Error: 'The user has created no journal entries.' });
-        }         
-     })
-    .catch(error => {
+        }
+    } catch (error) {
         console.log(error);
         res.status(400).json({ Error: 'Woops! Unable to retrieve entries.' });
-    });
-
+    }
 });
+
 
 // DELETE entries Controller ******************************
 app.delete('/entries/:_id', (req, res) => {

@@ -47,10 +47,9 @@ const createEntry = async (text, author, write_time) => {
 // Retrieve an entry by author
 const retrieveEntryByAuthor = async (author) => {
     try {
-        const entry = await entries.find({ author }); 
-        return entry;
+        return await entries.find({ author }).select("text write_time create_time");
     } catch (error) {
-        console.error("Error retrieving entries by author:", error);
+        console.error("Database error:", error);
         throw error;
     }
 };

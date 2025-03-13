@@ -100,10 +100,10 @@ function EditAccount() {
                                 placeholder="Enter new password"
                             />
                         </div>
-                        <button type="submit">Update Account Settings</button>
+                        <button class="user_button edit_account" type="submit">Update Account Settings</button>
                     </form>
                     <TestEmailButton email={email}/>
-                    <button onClick={() => navigate(-1)}>Cancel</button>
+                    <button class="user_button edit_account" onClick={() => navigate(-1)}>Go Back</button>
                 </Col>
             </Row>
         </>
